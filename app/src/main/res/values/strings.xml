@@ -1,4 +1,18 @@
 <resources>
     <string name="app_name">Prophiles</string>
+
+    <!-- Activities -->
+    <string name="title_activity_profile_list">ProfileListActivity</string>
+
+    <!-- Common actions -->
     <string name="action_settings">Settings</string>
+    <string name="action_save">Save</string>
+
+
+    <string-array name="options_location_mode">
+        <item>Off</item>
+        <item>Device Only</item>
+        <item>Battery Saving</item>
+        <item>High Accuracy</item>
+    </string-array>
 </resources>
