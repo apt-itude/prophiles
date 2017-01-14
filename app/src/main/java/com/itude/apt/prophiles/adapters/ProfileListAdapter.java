@@ -19,15 +19,23 @@ public class ProfileListAdapter extends RecyclerView.Adapter<ProfileListAdapter.
     private List<Profile> mProfiles;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView mNameTextView;
+        private TextView mNameTextView;
 
         public ViewHolder(View profileView) {
             super(profileView);
             mNameTextView = (TextView) profileView.findViewById(android.R.id.text1);
         }
+
+        public void bindProfile(Profile profile) {
+            mNameTextView.setText(profile.name);
+        }
     }
 
     public ProfileListAdapter(List<Profile> profiles) {
+        mProfiles = profiles;
+    }
+
+    public void setProfiles(List<Profile> profiles) {
         mProfiles = profiles;
     }
 
@@ -47,15 +55,11 @@ public class ProfileListAdapter extends RecyclerView.Adapter<ProfileListAdapter.
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Profile profile = mProfiles.get(position);
-        holder.mNameTextView.setText(profile.name);
+        holder.bindProfile(profile);
     }
 
     @Override
     public int getItemCount() {
         return mProfiles.size();
-    }
-
-    public void setProfiles(List<Profile> profiles) {
-        mProfiles = profiles;
     }
 }

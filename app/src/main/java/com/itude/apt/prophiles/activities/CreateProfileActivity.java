@@ -20,13 +20,17 @@ public class CreateProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_profile);
 
+        setUpActionBar();
+
+        mNameEditText = (EditText) findViewById(R.id.nameEditText);
+    }
+
+    private void setUpActionBar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
-
-        mNameEditText = (EditText) findViewById(R.id.nameEditText);
     }
 
     @Override
