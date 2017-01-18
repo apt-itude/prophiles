@@ -1,5 +1,6 @@
 package com.itude.apt.prophiles.activities;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -8,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Toast;
 
 import com.itude.apt.prophiles.R;
 import com.itude.apt.prophiles.adapters.ProfileListAdapter;
@@ -41,8 +43,29 @@ public class ProfileListActivity extends AppCompatActivity {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
+        final Activity activity = this;
         List<Profile> profiles = Profile.listAll(Profile.class);
-        mAdapter = new ProfileListAdapter(profiles);
+        mAdapter = new ProfileListAdapter(profiles) {
+
+            @Override
+            public void onProfileSelected(Profile profile) {
+                Toast.makeText(
+                    activity,
+                    "Selected profile " + profile.name,
+                    Toast.LENGTH_SHORT
+                ).show();
+            }
+
+            @Override
+            public boolean onProfileLongClick(Profile profile) {
+                Toast.makeText(
+                    activity,
+                    "Profile " + profile.name + " long clicked",
+                    Toast.LENGTH_SHORT
+                ).show();
+                return true;
+            }
+        };
         recyclerView.setAdapter(mAdapter);
     }
 

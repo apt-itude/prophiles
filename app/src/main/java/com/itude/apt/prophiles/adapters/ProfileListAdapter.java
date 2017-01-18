@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckedTextView;
-import android.widget.Toast;
 
 import com.itude.apt.prophiles.model.Profile;
 import com.itude.apt.prophiles.util.RecyclerViewSingleSelector;
@@ -16,18 +15,21 @@ import java.util.List;
  * Created by athompson on 1/9/17.
  */
 
-public class ProfileListAdapter extends RecyclerView.Adapter<ProfileListAdapter.ViewHolder> {
+public abstract class ProfileListAdapter extends RecyclerView.Adapter<ProfileListAdapter.ViewHolder> {
 
     private List<Profile> mProfiles;
     private RecyclerViewSingleSelector mSelector;
 
-    public ProfileListAdapter(List<Profile> profiles) {
+    protected ProfileListAdapter(List<Profile> profiles) {
         mProfiles = profiles;
     }
 
     public void setProfiles(List<Profile> profiles) {
         mProfiles = profiles;
     }
+
+    public abstract void onProfileSelected(Profile profile);
+    public abstract boolean onProfileLongClick(Profile profile);
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -40,6 +42,7 @@ public class ProfileListAdapter extends RecyclerView.Adapter<ProfileListAdapter.
         );
 
         final ViewHolder viewHolder = new ViewHolder(profileView);
+
         viewHolder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -48,12 +51,16 @@ public class ProfileListAdapter extends RecyclerView.Adapter<ProfileListAdapter.
                     mSelector.select(position);
 
                     Profile profile = viewHolder.getProfile();
-                    Toast.makeText(
-                        v.getContext(),
-                        "Selected profile " + profile.name,
-                        Toast.LENGTH_SHORT
-                    ).show();
+                    onProfileSelected(profile);
                 }
+            }
+        });
+
+        viewHolder.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Profile profile = viewHolder.getProfile();
+                return onProfileLongClick(profile);
             }
         });
 
@@ -103,8 +110,12 @@ public class ProfileListAdapter extends RecyclerView.Adapter<ProfileListAdapter.
             return mProfile;
         }
 
-        void setOnClickListener(View.OnClickListener onClickListener) {
-            mNameTextView.setOnClickListener(onClickListener);
+        void setOnClickListener(View.OnClickListener listener) {
+            mNameTextView.setOnClickListener(listener);
+        }
+
+        void setOnLongClickListener(View.OnLongClickListener listener) {
+            mNameTextView.setOnLongClickListener(listener);
         }
     }
 }
