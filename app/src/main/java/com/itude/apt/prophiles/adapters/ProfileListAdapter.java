@@ -20,16 +20,12 @@ public abstract class ProfileListAdapter extends RecyclerView.Adapter<ProfileLis
     private List<Profile> mProfiles;
     private RecyclerViewSingleSelector mSelector;
 
-    protected ProfileListAdapter(List<Profile> profiles) {
-        mProfiles = profiles;
+    protected ProfileListAdapter() {
+        mProfiles = Profile.listAll(Profile.class);
     }
 
-    public void setProfiles(List<Profile> profiles) {
-        mProfiles = profiles;
-    }
-
-    public abstract void onProfileSelected(Profile profile);
-    public abstract boolean onProfileLongClick(Profile profile);
+    public abstract void onProfileSelected(Profile profile, int position);
+    public abstract boolean onProfileLongClick(Profile profile, int position);
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -51,7 +47,7 @@ public abstract class ProfileListAdapter extends RecyclerView.Adapter<ProfileLis
                     mSelector.select(position);
 
                     Profile profile = viewHolder.getProfile();
-                    onProfileSelected(profile);
+                    onProfileSelected(profile, position);
                 }
             }
         });
@@ -60,7 +56,8 @@ public abstract class ProfileListAdapter extends RecyclerView.Adapter<ProfileLis
             @Override
             public boolean onLongClick(View v) {
                 Profile profile = viewHolder.getProfile();
-                return onProfileLongClick(profile);
+                int position = viewHolder.getAdapterPosition();
+                return onProfileLongClick(profile, position);
             }
         });
 
@@ -82,6 +79,20 @@ public abstract class ProfileListAdapter extends RecyclerView.Adapter<ProfileLis
     @Override
     public int getItemCount() {
         return mProfiles.size();
+    }
+
+    public void refresh() {
+        mProfiles = Profile.listAll(Profile.class);
+        notifyDataSetChanged();
+    }
+
+    public void deleteProfile(int position) {
+        Profile profile = mProfiles.get(position);
+        if (profile != null) {
+            profile.delete();
+            mProfiles.remove(position);
+            notifyItemRemoved(position);
+        }
     }
 
 

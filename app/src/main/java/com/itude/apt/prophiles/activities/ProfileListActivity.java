@@ -1,21 +1,21 @@
 package com.itude.apt.prophiles.activities;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.view.ActionMode;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
 import com.itude.apt.prophiles.R;
 import com.itude.apt.prophiles.adapters.ProfileListAdapter;
 import com.itude.apt.prophiles.model.Profile;
-
-import java.util.List;
 
 public class ProfileListActivity extends AppCompatActivity {
 
@@ -43,30 +43,62 @@ public class ProfileListActivity extends AppCompatActivity {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        final Activity activity = this;
-        List<Profile> profiles = Profile.listAll(Profile.class);
-        mAdapter = new ProfileListAdapter(profiles) {
+        mAdapter = new ProfileListAdapter() {
 
             @Override
-            public void onProfileSelected(Profile profile) {
+            public void onProfileSelected(Profile profile, int position) {
                 Toast.makeText(
-                    activity,
+                    ProfileListActivity.this,
                     "Selected profile " + profile.name,
                     Toast.LENGTH_SHORT
                 ).show();
             }
 
             @Override
-            public boolean onProfileLongClick(Profile profile) {
-                Toast.makeText(
-                    activity,
-                    "Profile " + profile.name + " long clicked",
-                    Toast.LENGTH_SHORT
-                ).show();
+            public boolean onProfileLongClick(Profile profile, int position) {
+                startProfileActionMode(profile, position);
                 return true;
             }
         };
         recyclerView.setAdapter(mAdapter);
+    }
+
+    private void startProfileActionMode(final Profile profile, final int position) {
+        startSupportActionMode(new ActionMode.Callback() {
+            @Override
+            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+                mode.getMenuInflater().inflate(R.menu.menu_profile_list_context, menu);
+                return true;
+            }
+
+            @Override
+            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+                return false;
+            }
+
+            @Override
+            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.action_delete:
+                        Toast.makeText(
+                            ProfileListActivity.this,
+                            "Deleting profile " + profile.name,
+                            Toast.LENGTH_SHORT
+                        ).show();
+
+                        mAdapter.deleteProfile(position);
+
+                        mode.finish();
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+
+            @Override
+            public void onDestroyActionMode(ActionMode mode) {
+            }
+        });
     }
 
     private void setUpFloatingActionButton() {
@@ -87,8 +119,6 @@ public class ProfileListActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        List<Profile> profiles = Profile.listAll(Profile.class);
-        mAdapter.setProfiles(profiles);
-        mAdapter.notifyDataSetChanged();
+        mAdapter.refresh();
     }
 }
