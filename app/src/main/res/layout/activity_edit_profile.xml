@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textCapWords"
-            android:hint="Name"/>
+            android:hint="@string/edit_profile_activity_name_hint"/>
     </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>
