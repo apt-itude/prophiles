@@ -31,7 +31,7 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".activities.CreateProfileActivity"
+        <activity android:name=".activities.EditProfileActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:parentActivityName="com.itude.apt.prophiles.activities.ProfileListActivity" >
 

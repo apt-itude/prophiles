@@ -79,6 +79,10 @@ public class ProfileListActivity extends AppCompatActivity {
             @Override
             public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
                 switch (item.getItemId()) {
+                    case R.id.action_edit:
+                        editProfile(profile);
+                        mode.finish();
+                        return true;
                     case R.id.action_delete:
                         Toast.makeText(
                             ProfileListActivity.this,
@@ -112,7 +116,13 @@ public class ProfileListActivity extends AppCompatActivity {
     }
 
     private void createProfile() {
-        Intent intent = new Intent(this, CreateProfileActivity.class);
+        Intent intent = new Intent(this, EditProfileActivity.class);
+        startActivity(intent);
+    }
+
+    private void editProfile(Profile profile) {
+        Intent intent = new Intent(this, EditProfileActivity.class);
+        intent.putExtra(EditProfileActivity.EXTRA_PROFILE_ID, profile.getId());
         startActivity(intent);
     }
 
