@@ -2,14 +2,19 @@ package com.itude.apt.prophiles.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.itude.apt.prophiles.R;
+import com.itude.apt.prophiles.fragments.SingleChoiceDialogFragment;
+import com.itude.apt.prophiles.model.EnableDisableState;
 import com.itude.apt.prophiles.model.Profile;
 
 import io.realm.Realm;
@@ -19,6 +24,7 @@ public class EditProfileActivity extends AppCompatActivity {
     private Realm mRealm;
     private Profile mProfile;
     private EditText mNameEditText;
+    private TextView mWifiStateTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +36,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
         setUpActionBar();
         setUpNameEditText();
+        setUpWifiStateView();
     }
 
     private void initializeProfile() {
@@ -59,6 +66,57 @@ public class EditProfileActivity extends AppCompatActivity {
         if (name != null && !name.isEmpty()) {
             mNameEditText.setText(name);
         }
+    }
+
+    private void setUpWifiStateView() {
+        mWifiStateTextView = (TextView) findViewById(R.id.actionWifiStateText);
+        updateWifiStateTextView();
+
+        View wifiStateView = findViewById(R.id.actionWifiStateLayout);
+        wifiStateView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showWifiStateDialogFragment();
+            }
+        });
+    }
+
+    private void updateWifiStateTextView() {
+        String[] enableDisableStrings = getResources().getStringArray(
+            R.array.options_enable_disable
+        );
+
+        String currentStateString = enableDisableStrings[mProfile.getWifiState().toInt()];
+
+        mWifiStateTextView.setText(currentStateString);
+
+    }
+
+    private void showWifiStateDialogFragment() {
+        DialogFragment dialog = SingleChoiceDialogFragment.newInstance(
+            getResources().getStringArray(R.array.options_enable_disable),
+            mProfile.getWifiState().toInt(),
+            new SingleChoiceDialogFragment.OnSelectedListener() {
+                @Override
+                public void onSelected(final int which) {
+                    setWifiState(EnableDisableState.fromInt(which));
+                    updateWifiStateTextView();
+                }
+            }
+        );
+
+        dialog.show(getSupportFragmentManager(), "WifiStateDialogFragment");
+
+    }
+
+    private void setWifiState(final EnableDisableState state) {
+        mRealm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                mProfile.setWifiState(state);
+            }
+        });
+
     }
 
     @Override

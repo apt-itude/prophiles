@@ -24,13 +24,61 @@
             android:theme="@style/AppTheme.AppBarOverlay"
             app:popupTheme="@style/AppTheme.PopupOverlay"/>
 
-        <EditText
-            android:id="@+id/nameEditText"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textCapWords"
-            android:hint="@string/edit_profile_activity_name_hint"/>
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/activity_margin"
+            android:paddingRight="@dimen/activity_margin">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/touchable"
+                android:gravity="center_vertical"
+                android:text="@string/activity_edit_profile_name"
+                android:textSize="@dimen/text_small"
+                android:textStyle="bold"/>
+
+            <EditText
+                android:id="@+id/nameEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/activity_edit_profile_name_hint"
+                android:inputType="textCapWords"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/touchable"
+                android:gravity="center_vertical"
+                android:text="@string/activity_edit_profile_actions"
+                android:textSize="@dimen/text_small"
+                android:textStyle="bold"/>
+
+            <LinearLayout
+                android:id="@+id/actionWifiStateLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/margin_padding_small"
+                android:paddingTop="@dimen/margin_padding_small">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/activity_edit_profile_wifi_state"
+                    android:textSize="@dimen/text_medium"/>
+
+                <TextView
+                    android:id="@+id/actionWifiStateText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/activity_edit_profile_no_override"
+                    android:textSize="@dimen/text_small"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
     </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>

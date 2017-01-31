@@ -21,6 +21,8 @@ public class ProphilesApplication extends Application {
             .name(REALM_NAME)
             .schemaVersion(1)
             .build();
+        // TODO: 2/2/17 remove this
+        Realm.deleteRealm(config);
         Realm.setDefaultConfiguration(config);
     }
 }
