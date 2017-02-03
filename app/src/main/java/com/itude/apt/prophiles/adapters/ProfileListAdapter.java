@@ -1,5 +1,6 @@
 package com.itude.apt.prophiles.adapters;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,23 +10,24 @@ import android.widget.CheckedTextView;
 import com.itude.apt.prophiles.model.Profile;
 import com.itude.apt.prophiles.util.RecyclerViewSingleSelector;
 
-import java.util.List;
+import io.realm.OrderedRealmCollection;
+import io.realm.RealmRecyclerViewAdapter;
 
 /**
  * Created by athompson on 1/9/17.
  */
 
-public abstract class ProfileListAdapter extends RecyclerView.Adapter<ProfileListAdapter.ViewHolder> {
+public abstract class ProfileListAdapter extends RealmRecyclerViewAdapter<Profile, ProfileListAdapter.ViewHolder> {
 
-    private List<Profile> mProfiles;
     private RecyclerViewSingleSelector mSelector;
 
-    protected ProfileListAdapter() {
-        mProfiles = Profile.listAll(Profile.class);
+    public ProfileListAdapter(Context context, OrderedRealmCollection<Profile> profiles) {
+        super(context, profiles, true);
     }
 
-    public abstract void onProfileSelected(Profile profile, int position);
-    public abstract boolean onProfileLongClick(Profile profile, int position);
+    public abstract void onProfileSelected(String id);
+
+    public abstract boolean onProfileLongClick(String id);
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -47,7 +49,7 @@ public abstract class ProfileListAdapter extends RecyclerView.Adapter<ProfileLis
                     mSelector.select(position);
 
                     Profile profile = viewHolder.getProfile();
-                    onProfileSelected(profile, position);
+                    onProfileSelected(profile.getId());
                 }
             }
         });
@@ -56,8 +58,7 @@ public abstract class ProfileListAdapter extends RecyclerView.Adapter<ProfileLis
             @Override
             public boolean onLongClick(View v) {
                 Profile profile = viewHolder.getProfile();
-                int position = viewHolder.getAdapterPosition();
-                return onProfileLongClick(profile, position);
+                return onProfileLongClick(profile.getId());
             }
         });
 
@@ -66,7 +67,7 @@ public abstract class ProfileListAdapter extends RecyclerView.Adapter<ProfileLis
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Profile profile = mProfiles.get(position);
+        Profile profile = getData().get(position);
         holder.bindProfile(profile);
     }
 
@@ -74,25 +75,6 @@ public abstract class ProfileListAdapter extends RecyclerView.Adapter<ProfileLis
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
         mSelector = new RecyclerViewSingleSelector(recyclerView);
-    }
-
-    @Override
-    public int getItemCount() {
-        return mProfiles.size();
-    }
-
-    public void refresh() {
-        mProfiles = Profile.listAll(Profile.class);
-        notifyDataSetChanged();
-    }
-
-    public void deleteProfile(int position) {
-        Profile profile = mProfiles.get(position);
-        if (profile != null) {
-            profile.delete();
-            mProfiles.remove(position);
-            notifyItemRemoved(position);
-        }
     }
 
 
@@ -114,7 +96,7 @@ public abstract class ProfileListAdapter extends RecyclerView.Adapter<ProfileLis
 
         void bindProfile(Profile profile) {
             mProfile = profile;
-            mNameTextView.setText(profile.name);
+            mNameTextView.setText(profile.getName());
         }
 
         Profile getProfile() {

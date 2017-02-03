@@ -12,30 +12,36 @@ import android.widget.EditText;
 import com.itude.apt.prophiles.R;
 import com.itude.apt.prophiles.model.Profile;
 
+import io.realm.Realm;
+
 public class EditProfileActivity extends AppCompatActivity {
 
-    public static String EXTRA_PROFILE_ID = "PROFILE_ID";
-
-    private EditText mNameEditText;
+    private Realm mRealm;
     private Profile mProfile;
+    private EditText mNameEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
 
-        setUpActionBar();
+        mRealm = Realm.getDefaultInstance();
+        initializeProfile();
 
+        setUpActionBar();
+        setUpNameEditText();
+    }
+
+    private void initializeProfile() {
         Intent intent = getIntent();
 
-        Long profileId = intent.getLongExtra(EXTRA_PROFILE_ID, -1);
-        if (profileId > 0) {
-            mProfile = Profile.findById(Profile.class, profileId);
-        } else {
+        String profileId = intent.getStringExtra(Profile.ID);
+        if (profileId == null) {
             mProfile = new Profile();
+        } else {
+            mProfile = mRealm.where(Profile.class).equalTo(Profile.ID, profileId).findFirst();
         }
 
-        setUpNameEditText();
     }
 
     private void setUpActionBar() {
@@ -49,10 +55,16 @@ public class EditProfileActivity extends AppCompatActivity {
     private void setUpNameEditText() {
         mNameEditText = (EditText) findViewById(R.id.nameEditText);
 
-        String name = mProfile.name;
+        String name = mProfile.getName();
         if (name != null && !name.isEmpty()) {
-            mNameEditText.setText(mProfile.name);
+            mNameEditText.setText(name);
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mRealm.close();
     }
 
     @Override
@@ -74,7 +86,12 @@ public class EditProfileActivity extends AppCompatActivity {
     }
 
     private void save() {
-        mProfile.name = mNameEditText.getText().toString();;
-        mProfile.save();
+        mRealm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                mProfile.setName(mNameEditText.getText().toString());
+                realm.copyToRealmOrUpdate(mProfile);
+            }
+        });
     }
 }
