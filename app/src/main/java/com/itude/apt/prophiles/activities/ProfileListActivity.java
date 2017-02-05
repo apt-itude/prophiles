@@ -1,5 +1,6 @@
 package com.itude.apt.prophiles.activities;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.itude.apt.prophiles.R;
+import com.itude.apt.prophiles.actions.ProfileActivator;
 import com.itude.apt.prophiles.adapters.ProfileListAdapter;
 import com.itude.apt.prophiles.model.Profile;
 
@@ -42,13 +44,15 @@ public class ProfileListActivity extends AppCompatActivity {
     }
 
     private void setUpRecyclerView() {
+        final Activity activity = this;
+
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.content_main_profile_list);
         recyclerView.setHasFixedSize(true);
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setLayoutManager(new LinearLayoutManager(activity));
 
         OrderedRealmCollection<Profile> profiles = mRealm.where(Profile.class).findAll();
-        recyclerView.setAdapter(new ProfileListAdapter(this, profiles) {
+        recyclerView.setAdapter(new ProfileListAdapter(activity, profiles) {
 
             @Override
             public void onProfileSelected(String id) {
@@ -58,6 +62,9 @@ public class ProfileListActivity extends AppCompatActivity {
                     "Selected profile " + profile.getName(),
                     Toast.LENGTH_SHORT
                 ).show();
+
+                ProfileActivator activator = new ProfileActivator(profile, activity);
+                activator.activate();
             }
 
             @Override
