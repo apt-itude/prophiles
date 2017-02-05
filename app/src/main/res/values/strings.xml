@@ -18,6 +18,7 @@
     <string name="activity_edit_profile_actions">Actions</string>
     <string name="activity_edit_profile_no_override">No Override</string>
     <string name="activity_edit_profile_wifi_state">Wi-Fi State</string>
+    <string name="activity_edit_profile_bluetooth_state">Bluetooth State</string>
 
 
     <string-array name="options_enable_disable">

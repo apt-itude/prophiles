@@ -78,6 +78,29 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/actionBluetoothStateLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/margin_padding_small"
+                android:paddingTop="@dimen/margin_padding_small">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/activity_edit_profile_bluetooth_state"
+                    android:textSize="@dimen/text_medium"/>
+
+                <TextView
+                    android:id="@+id/actionBluetoothStateText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/activity_edit_profile_no_override"
+                    android:textSize="@dimen/text_small"/>
+
+            </LinearLayout>
+
         </LinearLayout>
     </LinearLayout>
 

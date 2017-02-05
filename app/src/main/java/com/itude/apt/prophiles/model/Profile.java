@@ -20,6 +20,8 @@ public class Profile extends RealmObject {
 
     private int mWifiState = EnableDisableState.NO_OVERRIDE.toInt();
 
+    private int mBluetoothState = EnableDisableState.NO_OVERRIDE.toInt();
+
 
     public Profile() {
         this.id = UUID.randomUUID().toString();
@@ -41,7 +43,15 @@ public class Profile extends RealmObject {
         return EnableDisableState.fromInt(mWifiState);
     }
 
-    public void setWifiState(EnableDisableState wifiState) {
-        this.mWifiState = wifiState.toInt();
+    public void setWifiState(EnableDisableState state) {
+        this.mWifiState = state.toInt();
+    }
+
+    public EnableDisableState getBluetoothState() {
+        return EnableDisableState.fromInt(mBluetoothState);
+    }
+
+    public void setBluetoothState(EnableDisableState state) {
+        this.mBluetoothState = state.toInt();
     }
 }
