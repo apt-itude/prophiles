@@ -23,6 +23,9 @@ public class EditProfileActivity extends AppCompatActivity {
 
     private Realm mRealm;
     private Profile mProfile;
+
+    private String[] mEnableDisableStrings;
+
     private EditText mNameEditText;
     private TextView mWifiStateTextView;
     private TextView mBluetoothStateTextView;
@@ -34,6 +37,8 @@ public class EditProfileActivity extends AppCompatActivity {
 
         mRealm = Realm.getDefaultInstance();
         initializeProfile();
+
+        mEnableDisableStrings = getResources().getStringArray(R.array.options_enable_disable);
 
         setUpActionBar();
         setUpNameEditText();
@@ -84,19 +89,14 @@ public class EditProfileActivity extends AppCompatActivity {
     }
 
     private void updateWifiStateTextView() {
-        String[] enableDisableStrings = getResources().getStringArray(
-            R.array.options_enable_disable
-        );
-
-        String currentStateString = enableDisableStrings[mProfile.getWifiState().toInt()];
-
+        String currentStateString = mEnableDisableStrings[mProfile.getWifiState().toInt()];
         mWifiStateTextView.setText(currentStateString);
 
     }
 
     private void showWifiStateDialogFragment() {
         DialogFragment dialog = SingleChoiceDialogFragment.newInstance(
-            getResources().getStringArray(R.array.options_enable_disable),
+            mEnableDisableStrings,
             mProfile.getWifiState().toInt(),
             new SingleChoiceDialogFragment.OnSelectedListener() {
                 @Override
@@ -135,19 +135,14 @@ public class EditProfileActivity extends AppCompatActivity {
     }
 
     private void updateBluetoothStateTextView() {
-        String[] enableDisableStrings = getResources().getStringArray(
-            R.array.options_enable_disable
-        );
-
-        String currentStateString = enableDisableStrings[mProfile.getBluetoothState().toInt()];
-
+        String currentStateString = mEnableDisableStrings[mProfile.getBluetoothState().toInt()];
         mBluetoothStateTextView.setText(currentStateString);
 
     }
 
     private void showBluetoothStateDialogFragment() {
         DialogFragment dialog = SingleChoiceDialogFragment.newInstance(
-            getResources().getStringArray(R.array.options_enable_disable),
+            mEnableDisableStrings,
             mProfile.getBluetoothState().toInt(),
             new SingleChoiceDialogFragment.OnSelectedListener() {
                 @Override
