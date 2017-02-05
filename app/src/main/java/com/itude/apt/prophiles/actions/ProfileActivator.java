@@ -12,13 +12,16 @@ public class ProfileActivator {
 
     private Profile mProfile;
     private WifiStateAction mWifiStateAction;
+    private BluetoothStateAction mBluetoothStateAction;
 
     public ProfileActivator(Profile profile, Context context) {
         mProfile = profile;
         mWifiStateAction = new WifiStateAction(context);
+        mBluetoothStateAction = new BluetoothStateAction();
     }
 
     public void activate() {
         mWifiStateAction.perform(mProfile.getWifiState());
+        mBluetoothStateAction.perform(mProfile.getBluetoothState());
     }
 }
