@@ -15,8 +15,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.itude.apt.prophiles.R;
-import com.itude.apt.prophiles.fragments.VolumePickerDialogFragment;
 import com.itude.apt.prophiles.fragments.SingleChoiceDialogFragment;
+import com.itude.apt.prophiles.fragments.VolumePickerDialogFragment;
 import com.itude.apt.prophiles.model.EnableDisableState;
 import com.itude.apt.prophiles.model.Profile;
 import com.itude.apt.prophiles.model.Volume;
@@ -208,10 +208,10 @@ public class EditProfileActivity extends AppCompatActivity {
                 }
             }
         );
-        
+
         dialog.show(getSupportFragmentManager(), "RingVolumeDialogFragment");
     }
-    
+
     private void setRingVolume(final Volume volume) {
         mRealm.executeTransaction(new Realm.Transaction() {
             @Override
