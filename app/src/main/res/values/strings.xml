@@ -6,6 +6,8 @@
     <string name="action_save">Save</string>
     <string name="action_edit">Edit</string>
     <string name="action_delete">Delete</string>
+    <string name="action_ok">OK</string>
+    <string name="action_cancel">Cancel</string>
 
 
     <!-- Activities -->
@@ -19,6 +21,7 @@
     <string name="activity_edit_profile_no_override">No Override</string>
     <string name="activity_edit_profile_wifi_state">Wi-Fi State</string>
     <string name="activity_edit_profile_bluetooth_state">Bluetooth State</string>
+    <string name="activity_edit_profile_volume_level_ring">Ring Volume</string>
 
 
     <string-array name="options_enable_disable">

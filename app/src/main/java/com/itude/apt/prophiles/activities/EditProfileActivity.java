@@ -1,6 +1,8 @@
 package com.itude.apt.prophiles.activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.ActionBar;
@@ -13,9 +15,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.itude.apt.prophiles.R;
+import com.itude.apt.prophiles.fragments.VolumePickerDialogFragment;
 import com.itude.apt.prophiles.fragments.SingleChoiceDialogFragment;
 import com.itude.apt.prophiles.model.EnableDisableState;
 import com.itude.apt.prophiles.model.Profile;
+import com.itude.apt.prophiles.model.Volume;
 
 import io.realm.Realm;
 
@@ -26,9 +30,12 @@ public class EditProfileActivity extends AppCompatActivity {
 
     private String[] mEnableDisableStrings;
 
+    private AudioManager mAudioManager;
+
     private EditText mNameEditText;
     private TextView mWifiStateTextView;
     private TextView mBluetoothStateTextView;
+    private TextView mRingVolumeTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,10 +47,13 @@ public class EditProfileActivity extends AppCompatActivity {
 
         mEnableDisableStrings = getResources().getStringArray(R.array.options_enable_disable);
 
+        mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+
         setUpActionBar();
         setUpNameEditText();
         setUpWifiStateView();
         setUpBluetoothStateView();
+        setUpRingVolumeView();
     }
 
     private void initializeProfile() {
@@ -165,6 +175,50 @@ public class EditProfileActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void setUpRingVolumeView() {
+        mRingVolumeTextView = (TextView) findViewById(R.id.actionRingVolumeText);
+        updateRingVolumeTextView();
+
+        View ringVolumeView = findViewById(R.id.actionRingVolumeLayout);
+        ringVolumeView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showRingVolumeDialogFragment();
+            }
+        });
+    }
+
+    private void updateRingVolumeTextView() {
+        Volume volume = mProfile.getRingVolume();
+        mRingVolumeTextView.setText(volume.toString(this));
+    }
+
+    private void showRingVolumeDialogFragment() {
+        DialogFragment dialog = VolumePickerDialogFragment.newInstance(
+            R.string.activity_edit_profile_volume_level_ring,
+            mProfile.getRingVolume(),
+            mAudioManager.getStreamMaxVolume(AudioManager.STREAM_RING),
+            new VolumePickerDialogFragment.OnSelectedListener() {
+                @Override
+                public void onSelected(Volume volume) {
+                    setRingVolume(volume);
+                    updateRingVolumeTextView();
+                }
+            }
+        );
+        
+        dialog.show(getSupportFragmentManager(), "RingVolumeDialogFragment");
+    }
+    
+    private void setRingVolume(final Volume volume) {
+        mRealm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                mProfile.setRingVolume(volume);
+            }
+        });
     }
 
     @Override
