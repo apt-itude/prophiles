@@ -40,12 +40,14 @@ public class EditProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_profile);
+        setContentView(R.layout.activity_editprofile);
 
         mRealm = Realm.getDefaultInstance();
         initializeProfile();
 
-        mEnableDisableStrings = getResources().getStringArray(R.array.options_enable_disable);
+        mEnableDisableStrings = getResources().getStringArray(
+            R.array.editProfile_enableDisableOptions
+        );
 
         mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
 
@@ -69,7 +71,7 @@ public class EditProfileActivity extends AppCompatActivity {
     }
 
     private void setUpActionBar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_editProfile);
         setSupportActionBar(toolbar);
 
         ActionBar ab = getSupportActionBar();
@@ -77,7 +79,7 @@ public class EditProfileActivity extends AppCompatActivity {
     }
 
     private void setUpNameEditText() {
-        mNameEditText = (EditText) findViewById(R.id.nameEditText);
+        mNameEditText = (EditText) findViewById(R.id.editText_editProfile_name);
 
         String name = mProfile.getName();
         if (name != null && !name.isEmpty()) {
@@ -86,10 +88,10 @@ public class EditProfileActivity extends AppCompatActivity {
     }
 
     private void setUpWifiStateView() {
-        mWifiStateTextView = (TextView) findViewById(R.id.actionWifiStateText);
+        mWifiStateTextView = (TextView) findViewById(R.id.textView_editProfile_wifiState);
         updateWifiStateTextView();
 
-        View wifiStateView = findViewById(R.id.actionWifiStateLayout);
+        View wifiStateView = findViewById(R.id.linearLayout_editProfile_wifiState);
         wifiStateView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -132,10 +134,10 @@ public class EditProfileActivity extends AppCompatActivity {
     }
 
     private void setUpBluetoothStateView() {
-        mBluetoothStateTextView = (TextView) findViewById(R.id.actionBluetoothStateText);
+        mBluetoothStateTextView = (TextView) findViewById(R.id.textView_editProfile_bluetoothState);
         updateBluetoothStateTextView();
 
-        View wifiStateView = findViewById(R.id.actionBluetoothStateLayout);
+        View wifiStateView = findViewById(R.id.linearLayout_editProfile_bluetoothState);
         wifiStateView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -178,10 +180,10 @@ public class EditProfileActivity extends AppCompatActivity {
     }
 
     private void setUpRingVolumeView() {
-        mRingVolumeTextView = (TextView) findViewById(R.id.actionRingVolumeText);
+        mRingVolumeTextView = (TextView) findViewById(R.id.textView_editProfile_ringVolume);
         updateRingVolumeTextView();
 
-        View ringVolumeView = findViewById(R.id.actionRingVolumeLayout);
+        View ringVolumeView = findViewById(R.id.linearLayout_editProfile_ringVolume);
         ringVolumeView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -197,7 +199,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
     private void showRingVolumeDialogFragment() {
         DialogFragment dialog = VolumePickerDialogFragment.newInstance(
-            R.string.activity_edit_profile_volume_level_ring,
+            R.string.editProfile_ringVolume,
             mProfile.getRingVolume(),
             mAudioManager.getStreamMaxVolume(AudioManager.STREAM_RING),
             new VolumePickerDialogFragment.OnSelectedListener() {
@@ -229,7 +231,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_create_profile_options, menu);
+        getMenuInflater().inflate(R.menu.options_editprofile, menu);
         return true;
     }
 

@@ -1,27 +1,20 @@
 <resources>
-    <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="activity_margin">16dp</dimen>
-    <dimen name="fab_margin">16dp</dimen>
-
     <!-- Margins & Padding -->
     <dimen name="margin_padding_small">8dp</dimen>
     <dimen name="margin_padding_medium">16dp</dimen>
     <dimen name="margin_padding_large">32dp</dimen>
+    <dimen name="margin_fab">16dp</dimen>
+    <dimen name="margin_toolbar">4dp</dimen>
+    <dimen name="margin_notification">2dp</dimen>
 
     <!-- Icon sizes -->
-    <dimen name="standard_icon">32dp</dimen>
-    <dimen name="launcher_icon">48dp</dimen>
+    <dimen name="size_standard_icon">32dp</dimen>
+    <dimen name="size_launcher_icon">48dp</dimen>
+    <dimen name="size_toolbar_icon">24dp</dimen>
+    <dimen name="size_notification_icon">22dp</dimen>
 
     <!-- Touch Target Size-->
-    <dimen name="touchable">48dp</dimen>
-
-    <!-- Toolbar, 4 dp baseline -->
-    <dimen name="toolbar_margin">4dp</dimen>
-    <dimen name="toolbar_icon">24dp</dimen>
-
-    <!-- Notification bar, 2 dp baseline -->
-    <dimen name="notification_margin">2dp</dimen>
-    <dimen name="notification_icon">22dp</dimen>
+    <dimen name="size_touchable">48dp</dimen>
 
     <!-- Font sizes -->
     <dimen name="text_micro">12sp</dimen>

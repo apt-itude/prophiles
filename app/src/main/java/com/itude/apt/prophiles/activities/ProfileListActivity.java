@@ -29,7 +29,7 @@ public class ProfileListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile_list);
+        setContentView(R.layout.activity_profilelist);
 
         mRealm = Realm.getDefaultInstance();
 
@@ -39,14 +39,16 @@ public class ProfileListActivity extends AppCompatActivity {
     }
 
     private void setUpActionBar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_profileList);
         setSupportActionBar(toolbar);
     }
 
     private void setUpRecyclerView() {
         final Activity activity = this;
 
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.content_main_profile_list);
+        RecyclerView recyclerView = (RecyclerView) findViewById(
+            R.id.recyclerView_profileList_profiles
+        );
         recyclerView.setHasFixedSize(true);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(activity));
@@ -79,7 +81,7 @@ public class ProfileListActivity extends AppCompatActivity {
         startSupportActionMode(new ActionMode.Callback() {
             @Override
             public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-                mode.getMenuInflater().inflate(R.menu.menu_profile_list_context, menu);
+                mode.getMenuInflater().inflate(R.menu.context_profilelist, menu);
                 return true;
             }
 
@@ -111,7 +113,9 @@ public class ProfileListActivity extends AppCompatActivity {
     }
 
     private void setUpFloatingActionButton() {
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.create_profile_fab);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(
+            R.id.floatingActionButton_profileList_addProfile
+        );
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -59,7 +59,7 @@ public class VolumePickerDialogFragment extends DialogFragment {
         builder
             .setView(inflateView())
             .setTitle(args.getInt(ARG_TITLE))
-            .setPositiveButton(R.string.action_ok, new DialogInterface.OnClickListener() {
+            .setPositiveButton(R.string.all_ok, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     int volumeLevel = mNoOverrideCheckBox.isChecked() ?
@@ -68,7 +68,7 @@ public class VolumePickerDialogFragment extends DialogFragment {
                     mOnSelectedListener.onSelected(new Volume(volumeLevel));
                 }
             })
-            .setNegativeButton(R.string.action_cancel, new DialogInterface.OnClickListener() {
+            .setNegativeButton(R.string.all_cancel, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     // Do nothing
@@ -84,12 +84,14 @@ public class VolumePickerDialogFragment extends DialogFragment {
         int max = args.getInt(ARG_MAX);
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.fragment_volume_picker, null);
+        View view = inflater.inflate(R.layout.fragment_volumepickerdialog, null);
 
-        mSeekBar = (SeekBar) view.findViewById(R.id.seekBar);
+        mSeekBar = (SeekBar) view.findViewById(R.id.seekBar_volumePickerDialog_volume);
         mSeekBar.setMax(max);
 
-        mNoOverrideCheckBox = (CheckBox) view.findViewById(R.id.noOverrideCheckBox);
+        mNoOverrideCheckBox = (CheckBox) view.findViewById(
+            R.id.checkBox_volumePickerDialog_noOverride
+        );
         mNoOverrideCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

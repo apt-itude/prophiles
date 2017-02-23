@@ -3,7 +3,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_profile_list"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
@@ -15,7 +14,7 @@
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+            android:id="@+id/toolbar_profileList"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
@@ -23,10 +22,18 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_profile_list"/>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView_profileList_profiles"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/margin_padding_medium"
+        android:paddingLeft="@dimen/margin_padding_medium"
+        android:paddingRight="@dimen/margin_padding_medium"
+        android:paddingTop="@dimen/margin_padding_medium"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/create_profile_fab"
+        android:id="@+id/floatingActionButton_profileList_addProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"

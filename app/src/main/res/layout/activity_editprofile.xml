@@ -3,12 +3,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_create_profile"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:context="com.itude.apt.prophiles.activities.EditProfileActivity">
-
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,11 +14,11 @@
         android:orientation="vertical">
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+            android:id="@+id/toolbar_editProfile"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            android:elevation="@dimen/toolbar_margin"
+            android:elevation="@dimen/margin_toolbar"
             android:theme="@style/AppTheme.AppBarOverlay"
             app:popupTheme="@style/AppTheme.PopupOverlay"/>
 
@@ -28,35 +26,35 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:paddingLeft="@dimen/activity_margin"
-            android:paddingRight="@dimen/activity_margin">
+            android:paddingLeft="@dimen/margin_padding_medium"
+            android:paddingRight="@dimen/margin_padding_medium">
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/touchable"
+                android:layout_height="@dimen/size_touchable"
                 android:gravity="center_vertical"
-                android:text="@string/activity_edit_profile_name"
+                android:text="@string/editProfile_name"
                 android:textSize="@dimen/text_small"
                 android:textStyle="bold"/>
 
             <EditText
-                android:id="@+id/nameEditText"
+                android:id="@+id/editText_editProfile_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="@string/activity_edit_profile_name_hint"
+                android:hint="@string/editProfile_nameHint"
                 android:inputType="textCapWords"/>
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/touchable"
+                android:layout_height="@dimen/size_touchable"
                 android:gravity="center_vertical"
-                android:text="@string/activity_edit_profile_actions"
+                android:text="@string/editProfile_actions"
                 android:textSize="@dimen/text_small"
                 android:textStyle="bold"/>
 
             <LinearLayout
-                android:id="@+id/actionWifiStateLayout"
+                android:id="@+id/linearLayout_editProfile_wifiState"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -66,20 +64,20 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/activity_edit_profile_wifi_state"
+                    android:text="@string/editProfile_wifiState"
                     android:textSize="@dimen/text_medium"/>
 
                 <TextView
-                    android:id="@+id/actionWifiStateText"
+                    android:id="@+id/textView_editProfile_wifiState"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/activity_edit_profile_no_override"
+                    android:text="@string/all_no_override"
                     android:textSize="@dimen/text_small"/>
 
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/actionBluetoothStateLayout"
+                android:id="@+id/linearLayout_editProfile_bluetoothState"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -89,20 +87,20 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/activity_edit_profile_bluetooth_state"
+                    android:text="@string/editProfile_bluetoothState"
                     android:textSize="@dimen/text_medium"/>
 
                 <TextView
-                    android:id="@+id/actionBluetoothStateText"
+                    android:id="@+id/textView_editProfile_bluetoothState"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/activity_edit_profile_no_override"
+                    android:text="@string/all_no_override"
                     android:textSize="@dimen/text_small"/>
 
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/actionRingVolumeLayout"
+                android:id="@+id/linearLayout_editProfile_ringVolume"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -112,14 +110,14 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/activity_edit_profile_volume_level_ring"
+                    android:text="@string/editProfile_ringVolume"
                     android:textSize="@dimen/text_medium"/>
 
                 <TextView
-                    android:id="@+id/actionRingVolumeText"
+                    android:id="@+id/textView_editProfile_ringVolume"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/activity_edit_profile_no_override"
+                    android:text="@string/all_no_override"
                     android:textSize="@dimen/text_small"/>
 
             </LinearLayout>

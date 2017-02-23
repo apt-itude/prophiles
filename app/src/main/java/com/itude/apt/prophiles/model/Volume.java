@@ -32,7 +32,7 @@ public class Volume {
 
     public String toString(Context context) {
         if (isNoOverride()) {
-            return context.getString(R.string.activity_edit_profile_no_override);
+            return context.getString(R.string.all_no_override);
         } else {
             return Integer.toString(mLevel);
         }

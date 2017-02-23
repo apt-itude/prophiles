@@ -30,10 +30,10 @@ public class TestActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_editProfile);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.create_profile_fab);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.floatingActionButton_profileList_addProfile);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -84,7 +84,7 @@ public class TestActivity extends AppCompatActivity {
 
         ArrayAdapter<CharSequence> locationModeAdapter = ArrayAdapter.createFromResource(
             this,
-            R.array.options_location_mode,
+            R.array.editProfile_locationModeOptions,
             android.R.layout.simple_spinner_item
         );
         locationModeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
