@@ -24,6 +24,12 @@
     <string name="editProfile_locationMode">Location Mode</string>
     <string name="editProfile_ringVolume">Ring Volume</string>
 
+    <string name="editProfile_permissionNotGranted">Permission Not Granted</string>
+    <string name="editProfile_grantWriteSecureSettingsPermission">
+        To enable this feature, execute the following command on a terminal:
+        adb shell pm grant com.itude.apt.prophiles android.permission.WRITE_SECURE_SETTINGS
+    </string>
+
     <string-array name="editProfile_enableDisableOptions">
         <item>Enable</item>
         <item>Disable</item>

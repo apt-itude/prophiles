@@ -21,9 +21,9 @@ import com.itude.apt.prophiles.model.Volume;
 
 public class VolumePickerDialogFragment extends DialogFragment {
 
-    public static final String ARG_TITLE = "title";
-    public static final String ARG_CURRENT = "current";
-    public static final String ARG_MAX = "max";
+    private static final String ARG_TITLE = "title";
+    private static final String ARG_CURRENT = "current";
+    private static final String ARG_MAX = "max";
 
     private OnSelectedListener mOnSelectedListener;
     private CheckBox mNoOverrideCheckBox;

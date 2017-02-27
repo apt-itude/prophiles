@@ -1,14 +1,12 @@
 package com.itude.apt.prophiles.actions;
 
-import android.Manifest;
 import android.content.ContentResolver;
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.provider.Settings;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
 import com.itude.apt.prophiles.model.LocationMode;
+import com.itude.apt.prophiles.util.Permissions;
 
 /**
  * Created by athompson on 2/23/17.
@@ -31,7 +29,7 @@ class LocationModeAction {
             return;
         }
 
-        if (!isPermissionGranted()) {
+        if (!Permissions.canWriteSecureSettings(mContext)) {
             Log.w(TAG, "Permissions have not been granted to modify location mode");
             return;
         }
@@ -54,13 +52,5 @@ class LocationModeAction {
 
     private void setLocationMode(int value) {
         Settings.Secure.putInt(mContentResolver, Settings.Secure.LOCATION_MODE, value);
-    }
-
-    private boolean isPermissionGranted() {
-        int writeSecureSettingsPermission = ContextCompat.checkSelfPermission(
-            mContext,
-            Manifest.permission.WRITE_SECURE_SETTINGS
-        );
-        return writeSecureSettingsPermission == PackageManager.PERMISSION_GRANTED;
     }
 }

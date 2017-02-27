@@ -17,10 +17,12 @@ import android.widget.TextView;
 import com.itude.apt.prophiles.R;
 import com.itude.apt.prophiles.fragments.SingleChoiceDialogFragment;
 import com.itude.apt.prophiles.fragments.VolumePickerDialogFragment;
+import com.itude.apt.prophiles.fragments.WarningDialogFragment;
 import com.itude.apt.prophiles.model.EnableDisableState;
 import com.itude.apt.prophiles.model.LocationMode;
 import com.itude.apt.prophiles.model.Profile;
 import com.itude.apt.prophiles.model.Volume;
+import com.itude.apt.prophiles.util.Permissions;
 
 import io.realm.Realm;
 
@@ -204,17 +206,26 @@ public class EditProfileActivity extends AppCompatActivity {
     }
 
     private void showLocationModeDialogFragment() {
-        DialogFragment dialog = SingleChoiceDialogFragment.newInstance(
-            mLocationModeStrings,
-            mProfile.getLocationMode().toInt(),
-            new SingleChoiceDialogFragment.OnSelectedListener() {
-                @Override
-                public void onSelected(final int which) {
-                    setLocationMode(LocationMode.fromInt(which));
-                    updateLocationModeTextView();
+        DialogFragment dialog;
+
+        if (Permissions.canWriteSecureSettings(this)) {
+            dialog = SingleChoiceDialogFragment.newInstance(
+                mLocationModeStrings,
+                mProfile.getLocationMode().toInt(),
+                new SingleChoiceDialogFragment.OnSelectedListener() {
+                    @Override
+                    public void onSelected(final int which) {
+                        setLocationMode(LocationMode.fromInt(which));
+                        updateLocationModeTextView();
+                    }
                 }
-            }
-        );
+            );
+        } else {
+            dialog = WarningDialogFragment.newInstance(
+                R.string.editProfile_permissionNotGranted,
+                R.string.editProfile_grantWriteSecureSettingsPermission
+            );
+        }
 
         dialog.show(getSupportFragmentManager(), "LocationModeDialogFragment");
     }
