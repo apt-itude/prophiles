@@ -31,6 +31,14 @@ class VolumeManager {
         setVolume(AudioManager.STREAM_RING, volume);
     }
 
+    void setMediaVolume(Volume volume) {
+        setVolume(AudioManager.STREAM_MUSIC, volume);
+    }
+
+    void setAlarmVolume(Volume volume) {
+        setVolume(AudioManager.STREAM_ALARM, volume);
+    }
+
     private void setVolume(int stream, Volume volume) {
         if (volume.isNoOverride()) {
             return;

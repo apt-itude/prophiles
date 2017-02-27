@@ -145,6 +145,52 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/linearLayout_editProfile_mediaVolume"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/margin_padding_small"
+                android:paddingTop="@dimen/margin_padding_small">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/editProfile_mediaVolume"
+                    android:textSize="@dimen/text_medium"/>
+
+                <TextView
+                    android:id="@+id/textView_editProfile_mediaVolume"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/all_no_override"
+                    android:textSize="@dimen/text_small"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout_editProfile_alarmVolume"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/margin_padding_small"
+                android:paddingTop="@dimen/margin_padding_small">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/editProfile_alarmVolume"
+                    android:textSize="@dimen/text_medium"/>
+
+                <TextView
+                    android:id="@+id/textView_editProfile_alarmVolume"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/all_no_override"
+                    android:textSize="@dimen/text_small"/>
+
+            </LinearLayout>
+
         </LinearLayout>
     </LinearLayout>
 

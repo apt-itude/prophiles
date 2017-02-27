@@ -29,5 +29,7 @@ public class ProfileActivator {
         mBluetoothStateAction.perform(mProfile.getBluetoothState());
         mLocationModeAction.perform(mProfile.getLocationMode());
         mVolumeManager.setRingVolume(mProfile.getRingVolume());
+        mVolumeManager.setMediaVolume(mProfile.getMediaVolume());
+        mVolumeManager.setAlarmVolume(mProfile.getAlarmVolume());
     }
 }

@@ -8,6 +8,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,11 +23,14 @@ import com.itude.apt.prophiles.model.EnableDisableState;
 import com.itude.apt.prophiles.model.LocationMode;
 import com.itude.apt.prophiles.model.Profile;
 import com.itude.apt.prophiles.model.Volume;
+import com.itude.apt.prophiles.util.InvalidStreamError;
 import com.itude.apt.prophiles.util.Permissions;
 
 import io.realm.Realm;
 
 public class EditProfileActivity extends AppCompatActivity {
+
+    private static final String TAG = EditProfileActivity.class.getSimpleName();
 
     private Realm mRealm;
     private Profile mProfile;
@@ -41,6 +45,8 @@ public class EditProfileActivity extends AppCompatActivity {
     private TextView mBluetoothStateTextView;
     private TextView mLocationModeTextView;
     private TextView mRingVolumeTextView;
+    private TextView mMediaVolumeTextView;
+    private TextView mAlarmVolumeTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +71,8 @@ public class EditProfileActivity extends AppCompatActivity {
         setUpBluetoothStateView();
         setUpLocationModeView();
         setUpRingVolumeView();
+        setUpMediaVolumeView();
+        setUpAlarmVolumeView();
     }
 
     private void initializeProfile() {
@@ -242,32 +250,72 @@ public class EditProfileActivity extends AppCompatActivity {
 
     private void setUpRingVolumeView() {
         mRingVolumeTextView = (TextView) findViewById(R.id.textView_editProfile_ringVolume);
-        updateRingVolumeTextView();
+        updateVolumeTextView(AudioManager.STREAM_RING);
 
         View ringVolumeView = findViewById(R.id.linearLayout_editProfile_ringVolume);
         ringVolumeView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showRingVolumeDialogFragment();
+                showVolumeDialogFragment(AudioManager.STREAM_RING);
             }
         });
     }
 
-    private void updateRingVolumeTextView() {
-        Volume volume = mProfile.getRingVolume();
-        mRingVolumeTextView.setText(volume.toString(this));
+    private void setUpMediaVolumeView() {
+        mMediaVolumeTextView = (TextView) findViewById(R.id.textView_editProfile_mediaVolume);
+        updateVolumeTextView(AudioManager.STREAM_MUSIC);
+
+        View ringVolumeView = findViewById(R.id.linearLayout_editProfile_mediaVolume);
+        ringVolumeView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showVolumeDialogFragment(AudioManager.STREAM_MUSIC);
+            }
+        });
     }
 
-    private void showRingVolumeDialogFragment() {
+    private void setUpAlarmVolumeView() {
+        mAlarmVolumeTextView = (TextView) findViewById(R.id.textView_editProfile_alarmVolume);
+        updateVolumeTextView(AudioManager.STREAM_ALARM);
+
+        View ringVolumeView = findViewById(R.id.linearLayout_editProfile_alarmVolume);
+        ringVolumeView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showVolumeDialogFragment(AudioManager.STREAM_ALARM);
+            }
+        });
+    }
+
+    private void updateVolumeTextView(int stream) {
+        Volume volume = mProfile.getVolume(stream);
+        getVolumeTextView(stream).setText(volume.toString(this));
+    }
+
+    private TextView getVolumeTextView(int stream) {
+        switch (stream) {
+            case AudioManager.STREAM_RING:
+                return mRingVolumeTextView;
+            case AudioManager.STREAM_MUSIC:
+                return mMediaVolumeTextView;
+            case AudioManager.STREAM_ALARM:
+                return mAlarmVolumeTextView;
+            default:
+                Log.e(TAG, "Can't get volume TextView");
+                throw new InvalidStreamError(stream);
+        }
+    }
+
+    private void showVolumeDialogFragment(final int stream) {
         DialogFragment dialog = VolumePickerDialogFragment.newInstance(
-            R.string.editProfile_ringVolume,
-            mProfile.getRingVolume(),
-            mAudioManager.getStreamMaxVolume(AudioManager.STREAM_RING),
+            getVolumeTitleId(stream),
+            mProfile.getVolume(stream),
+            mAudioManager.getStreamMaxVolume(stream),
             new VolumePickerDialogFragment.OnSelectedListener() {
                 @Override
                 public void onSelected(Volume volume) {
-                    setRingVolume(volume);
-                    updateRingVolumeTextView();
+                    setVolume(stream, volume);
+                    updateVolumeTextView(stream);
                 }
             }
         );
@@ -275,11 +323,25 @@ public class EditProfileActivity extends AppCompatActivity {
         dialog.show(getSupportFragmentManager(), "RingVolumeDialogFragment");
     }
 
-    private void setRingVolume(final Volume volume) {
+    private int getVolumeTitleId(int stream) {
+        switch (stream) {
+            case AudioManager.STREAM_RING:
+                return R.string.editProfile_ringVolume;
+            case AudioManager.STREAM_MUSIC:
+                return R.string.editProfile_mediaVolume;
+            case AudioManager.STREAM_ALARM:
+                return R.string.editProfile_alarmVolume;
+            default:
+                Log.e(TAG, "Can't get volume title");
+                throw new InvalidStreamError(stream);
+        }
+    }
+
+    private void setVolume(final int stream, final Volume volume) {
         mRealm.executeTransaction(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
-                mProfile.setRingVolume(volume);
+                mProfile.setVolume(stream, volume);
             }
         });
     }
