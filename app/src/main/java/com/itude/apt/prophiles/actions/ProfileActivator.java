@@ -13,18 +13,21 @@ public class ProfileActivator {
     private Profile mProfile;
     private WifiStateAction mWifiStateAction;
     private BluetoothStateAction mBluetoothStateAction;
+    private LocationModeAction mLocationModeAction;
     private VolumeManager mVolumeManager;
 
     public ProfileActivator(Profile profile, Context context) {
         mProfile = profile;
         mWifiStateAction = new WifiStateAction(context);
         mBluetoothStateAction = new BluetoothStateAction();
+        mLocationModeAction = new LocationModeAction(context);
         mVolumeManager = new VolumeManager(context);
     }
 
     public void activate() {
         mWifiStateAction.perform(mProfile.getWifiState());
         mBluetoothStateAction.perform(mProfile.getBluetoothState());
+        mLocationModeAction.perform(mProfile.getLocationMode());
         mVolumeManager.setRingVolume(mProfile.getRingVolume());
     }
 }

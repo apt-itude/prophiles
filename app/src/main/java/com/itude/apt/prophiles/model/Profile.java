@@ -22,6 +22,8 @@ public class Profile extends RealmObject {
 
     private int mBluetoothState = EnableDisableState.NO_OVERRIDE.toInt();
 
+    private int mLocationMode = LocationMode.NO_OVERRIDE.toInt();
+
     private int mRingVolume = Volume.NO_OVERRIDE;
 
 
@@ -55,6 +57,14 @@ public class Profile extends RealmObject {
 
     public void setBluetoothState(EnableDisableState state) {
         mBluetoothState = state.toInt();
+    }
+
+    public LocationMode getLocationMode() {
+        return LocationMode.fromInt(mLocationMode);
+    }
+
+    public void setLocationMode(LocationMode mode) {
+        mLocationMode = mode.toInt();
     }
 
     public Volume getRingVolume() {

@@ -18,6 +18,7 @@ import com.itude.apt.prophiles.R;
 import com.itude.apt.prophiles.fragments.SingleChoiceDialogFragment;
 import com.itude.apt.prophiles.fragments.VolumePickerDialogFragment;
 import com.itude.apt.prophiles.model.EnableDisableState;
+import com.itude.apt.prophiles.model.LocationMode;
 import com.itude.apt.prophiles.model.Profile;
 import com.itude.apt.prophiles.model.Volume;
 
@@ -29,12 +30,14 @@ public class EditProfileActivity extends AppCompatActivity {
     private Profile mProfile;
 
     private String[] mEnableDisableStrings;
+    private String[] mLocationModeStrings;
 
     private AudioManager mAudioManager;
 
     private EditText mNameEditText;
     private TextView mWifiStateTextView;
     private TextView mBluetoothStateTextView;
+    private TextView mLocationModeTextView;
     private TextView mRingVolumeTextView;
 
     @Override
@@ -48,6 +51,9 @@ public class EditProfileActivity extends AppCompatActivity {
         mEnableDisableStrings = getResources().getStringArray(
             R.array.editProfile_enableDisableOptions
         );
+        mLocationModeStrings = getResources().getStringArray(
+            R.array.editProfile_locationModeOptions
+        );
 
         mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
 
@@ -55,6 +61,7 @@ public class EditProfileActivity extends AppCompatActivity {
         setUpNameEditText();
         setUpWifiStateView();
         setUpBluetoothStateView();
+        setUpLocationModeView();
         setUpRingVolumeView();
     }
 
@@ -120,7 +127,6 @@ public class EditProfileActivity extends AppCompatActivity {
         );
 
         dialog.show(getSupportFragmentManager(), "WifiStateDialogFragment");
-
     }
 
     private void setWifiState(final EnableDisableState state) {
@@ -166,7 +172,6 @@ public class EditProfileActivity extends AppCompatActivity {
         );
 
         dialog.show(getSupportFragmentManager(), "BluetoothStateDialogFragment");
-
     }
 
     private void setBluetoothState(final EnableDisableState state) {
@@ -174,6 +179,51 @@ public class EditProfileActivity extends AppCompatActivity {
             @Override
             public void execute(Realm realm) {
                 mProfile.setBluetoothState(state);
+            }
+        });
+
+    }
+
+    private void setUpLocationModeView() {
+        mLocationModeTextView = (TextView) findViewById(R.id.textView_editProfile_locationMode);
+        updateLocationModeTextView();
+
+        View view = findViewById(R.id.linearLayout_editProfile_locationMode);
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showLocationModeDialogFragment();
+            }
+        });
+    }
+
+    private void updateLocationModeTextView() {
+        String currentModeString = mLocationModeStrings[mProfile.getLocationMode().toInt()];
+        mLocationModeTextView.setText(currentModeString);
+
+    }
+
+    private void showLocationModeDialogFragment() {
+        DialogFragment dialog = SingleChoiceDialogFragment.newInstance(
+            mLocationModeStrings,
+            mProfile.getLocationMode().toInt(),
+            new SingleChoiceDialogFragment.OnSelectedListener() {
+                @Override
+                public void onSelected(final int which) {
+                    setLocationMode(LocationMode.fromInt(which));
+                    updateLocationModeTextView();
+                }
+            }
+        );
+
+        dialog.show(getSupportFragmentManager(), "LocationModeDialogFragment");
+    }
+
+    private void setLocationMode(final LocationMode mode) {
+        mRealm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                mProfile.setLocationMode(mode);
             }
         });
 

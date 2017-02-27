@@ -100,6 +100,29 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/linearLayout_editProfile_locationMode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/margin_padding_small"
+                android:paddingTop="@dimen/margin_padding_small">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/editProfile_locationMode"
+                    android:textSize="@dimen/text_medium"/>
+
+                <TextView
+                    android:id="@+id/textView_editProfile_locationMode"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/all_no_override"
+                    android:textSize="@dimen/text_small"/>
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:id="@+id/linearLayout_editProfile_ringVolume"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

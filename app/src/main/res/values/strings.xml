@@ -21,6 +21,7 @@
     <string name="editProfile_actions">Actions</string>
     <string name="editProfile_wifiState">Wi-Fi State</string>
     <string name="editProfile_bluetoothState">Bluetooth State</string>
+    <string name="editProfile_locationMode">Location Mode</string>
     <string name="editProfile_ringVolume">Ring Volume</string>
 
     <string-array name="editProfile_enableDisableOptions">
