@@ -19,13 +19,15 @@ public class RecyclerViewSingleSelector {
         Selectable previous = (Selectable) mRecyclerView.findViewHolderForAdapterPosition(
             mSelectedPosition
         );
-
         if (previous != null) {
             previous.setSelected(false);
         }
 
         Selectable next = (Selectable) mRecyclerView.findViewHolderForAdapterPosition(position);
-        next.setSelected(true);
+        if (next != null) {
+            // This may happen if the layout is being calculated
+            next.setSelected(true);
+        }
 
         mSelectedPosition = position;
     }

@@ -7,6 +7,7 @@ import com.itude.apt.prophiles.util.InvalidStreamError;
 
 import java.util.UUID;
 
+import io.realm.Realm;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
@@ -17,7 +18,7 @@ import io.realm.annotations.PrimaryKey;
 public class Profile extends RealmObject {
     
     public static final String ID = "id";
-    
+
     private static final String TAG = Profile.class.getSimpleName();
 
     @PrimaryKey
@@ -36,6 +37,8 @@ public class Profile extends RealmObject {
     private int mMediaVolume = Volume.NO_OVERRIDE;
 
     private int mAlarmVolume = Volume.NO_OVERRIDE;
+
+    private boolean isSelected = false;
 
 
     public Profile() {
@@ -131,5 +134,41 @@ public class Profile extends RealmObject {
                 Log.e(TAG, "Can't set stream volume");
                 throw new InvalidStreamError(stream);
         }
+    }
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean isSelected) {
+        this.isSelected = isSelected;
+    }
+
+    public static Profile getById(String id, Realm realm) {
+        return realm.where(Profile.class).equalTo("id", id).findFirst();
+    }
+
+    public static Profile getSelected(Realm realm) {
+        return realm.where(Profile.class).equalTo("isSelected", true).findFirst();
+    }
+
+    public static void select(String id, Realm realm) {
+        final Profile toSelect = getById(id, realm);
+
+        if (toSelect == null) {
+            return;
+        }
+
+        final Profile currentlySelected = getSelected(realm);
+
+        realm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                if (currentlySelected != null) {
+                    currentlySelected.setSelected(false);
+                }
+                toSelect.setSelected(true);
+            }
+        });
     }
 }

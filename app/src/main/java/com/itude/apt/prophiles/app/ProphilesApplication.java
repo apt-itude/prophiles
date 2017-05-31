@@ -22,7 +22,7 @@ public class ProphilesApplication extends Application {
             .schemaVersion(1)
             .build();
         // TODO: 2/2/17 remove this
-        Realm.deleteRealm(config);
+//        Realm.deleteRealm(config);
         Realm.setDefaultConfiguration(config);
     }
 }

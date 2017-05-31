@@ -82,7 +82,7 @@ public class EditProfileActivity extends AppCompatActivity {
         if (profileId == null) {
             mProfile = new Profile();
         } else {
-            mProfile = mRealm.where(Profile.class).equalTo(Profile.ID, profileId).findFirst();
+            mProfile = Profile.getById(profileId, mRealm);
         }
 
     }

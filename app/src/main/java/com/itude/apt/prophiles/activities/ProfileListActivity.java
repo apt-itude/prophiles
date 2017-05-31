@@ -54,16 +54,18 @@ public class ProfileListActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(activity));
 
         OrderedRealmCollection<Profile> profiles = mRealm.where(Profile.class).findAll();
-        recyclerView.setAdapter(new ProfileListAdapter(activity, profiles) {
+        ProfileListAdapter adapter = new ProfileListAdapter(activity, profiles) {
 
             @Override
             public void onProfileSelected(String id) {
-                Profile profile = getProfile(id);
+                Profile profile = Profile.getById(id, mRealm);
                 Toast.makeText(
                     ProfileListActivity.this,
                     "Selected profile " + profile.getName(),
                     Toast.LENGTH_SHORT
                 ).show();
+
+                Profile.select(id, mRealm);
 
                 ProfileActivator activator = new ProfileActivator(profile, activity);
                 activator.activate();
@@ -74,7 +76,9 @@ public class ProfileListActivity extends AppCompatActivity {
                 startProfileActionMode(id);
                 return true;
             }
-        });
+        };
+
+        recyclerView.setAdapter(adapter);
     }
 
     private void startProfileActionMode(final String profileId) {
@@ -122,10 +126,6 @@ public class ProfileListActivity extends AppCompatActivity {
                 createProfile();
             }
         });
-    }
-
-    private Profile getProfile(String id) {
-        return mRealm.where(Profile.class).equalTo(Profile.ID, id).findFirst();
     }
 
     private void createProfile() {

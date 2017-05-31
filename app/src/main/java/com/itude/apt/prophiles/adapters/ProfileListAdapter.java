@@ -97,6 +97,7 @@ public abstract class ProfileListAdapter extends RealmRecyclerViewAdapter<Profil
         void bindProfile(Profile profile) {
             mProfile = profile;
             mNameTextView.setText(profile.getName());
+            setSelected(profile.isSelected());
         }
 
         Profile getProfile() {
