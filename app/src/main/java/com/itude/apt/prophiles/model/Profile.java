@@ -26,17 +26,17 @@ public class Profile extends RealmObject {
 
     private String name;
 
-    private int mWifiState = EnableDisableState.NO_OVERRIDE.toInt();
+    private int wifiState = EnableDisableState.NO_OVERRIDE.toInt();
 
-    private int mBluetoothState = EnableDisableState.NO_OVERRIDE.toInt();
+    private int bluetoothState = EnableDisableState.NO_OVERRIDE.toInt();
 
-    private int mLocationMode = LocationMode.NO_OVERRIDE.toInt();
+    private int locationMode = LocationMode.NO_OVERRIDE.toInt();
 
-    private int mRingVolume = Volume.NO_OVERRIDE;
+    private int ringVolume = Volume.NO_OVERRIDE;
 
-    private int mMediaVolume = Volume.NO_OVERRIDE;
+    private int mediaVolume = Volume.NO_OVERRIDE;
 
-    private int mAlarmVolume = Volume.NO_OVERRIDE;
+    private int alarmVolume = Volume.NO_OVERRIDE;
 
     private boolean isSelected = false;
 
@@ -58,51 +58,51 @@ public class Profile extends RealmObject {
     }
 
     public EnableDisableState getWifiState() {
-        return EnableDisableState.fromInt(mWifiState);
+        return EnableDisableState.fromInt(wifiState);
     }
 
     public void setWifiState(EnableDisableState state) {
-        mWifiState = state.toInt();
+        wifiState = state.toInt();
     }
 
     public EnableDisableState getBluetoothState() {
-        return EnableDisableState.fromInt(mBluetoothState);
+        return EnableDisableState.fromInt(bluetoothState);
     }
 
     public void setBluetoothState(EnableDisableState state) {
-        mBluetoothState = state.toInt();
+        bluetoothState = state.toInt();
     }
 
     public LocationMode getLocationMode() {
-        return LocationMode.fromInt(mLocationMode);
+        return LocationMode.fromInt(locationMode);
     }
 
     public void setLocationMode(LocationMode mode) {
-        mLocationMode = mode.toInt();
+        locationMode = mode.toInt();
     }
 
     public Volume getRingVolume() {
-        return Volume.fromInt(mRingVolume);
+        return Volume.fromInt(ringVolume);
     }
 
     public void setRingVolume(Volume volume) {
-        mRingVolume = volume.toInt();
+        ringVolume = volume.toInt();
     }
 
     public Volume getMediaVolume() {
-        return Volume.fromInt(mMediaVolume);
+        return Volume.fromInt(mediaVolume);
     }
 
     public void setMediaVolume(Volume volume) {
-        mMediaVolume = volume.toInt();
+        mediaVolume = volume.toInt();
     }
 
     public Volume getAlarmVolume() {
-        return Volume.fromInt(mAlarmVolume);
+        return Volume.fromInt(alarmVolume);
     }
 
     public void setAlarmVolume(Volume volume) {
-        mAlarmVolume = volume.toInt();
+        alarmVolume = volume.toInt();
     }
 
     public Volume getVolume(int stream) {
