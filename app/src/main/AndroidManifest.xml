@@ -16,25 +16,32 @@
         android:label="@string/all_appName"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity
             android:name=".activities.ProfileListActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".activities.EditProfileActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:parentActivityName="com.itude.apt.prophiles.activities.ProfileListActivity" >
+        <activity
+            android:name=".activities.EditProfileActivity"
+            android:parentActivityName=".activities.ProfileListActivity"
+            android:theme="@style/AppTheme.NoActionBar">
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.itude.apt.prophiles.activities.ProfileListActivity" />
+                android:value="com.itude.apt.prophiles.activities.ProfileListActivity"/>
         </activity>
+
+        <service
+            android:name=".services.QuickTileService"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE"/>
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>
