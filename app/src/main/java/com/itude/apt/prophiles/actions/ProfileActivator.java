@@ -1,6 +1,7 @@
 package com.itude.apt.prophiles.actions;
 
 import android.content.Context;
+import android.widget.Toast;
 
 import com.itude.apt.prophiles.model.Profile;
 
@@ -11,6 +12,7 @@ import com.itude.apt.prophiles.model.Profile;
 public class ProfileActivator {
 
     private Profile mProfile;
+    private Context mContext;
     private WifiStateAction mWifiStateAction;
     private BluetoothStateAction mBluetoothStateAction;
     private LocationModeAction mLocationModeAction;
@@ -18,6 +20,7 @@ public class ProfileActivator {
 
     public ProfileActivator(Profile profile, Context context) {
         mProfile = profile;
+        mContext = context;
         mWifiStateAction = new WifiStateAction(context);
         mBluetoothStateAction = new BluetoothStateAction();
         mLocationModeAction = new LocationModeAction(context);
@@ -25,6 +28,12 @@ public class ProfileActivator {
     }
 
     public void activate() {
+        Toast.makeText(
+            mContext,
+            "Activating profile " + mProfile.getName(),
+            Toast.LENGTH_SHORT
+        ).show();
+
         mWifiStateAction.perform(mProfile.getWifiState());
         mBluetoothStateAction.perform(mProfile.getBluetoothState());
         mLocationModeAction.perform(mProfile.getLocationMode());

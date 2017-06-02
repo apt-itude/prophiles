@@ -77,6 +77,7 @@ public class QuickTileService extends TileService {
                     Profile profile = profiles.get(which);
 
                     Profile.select(profile.getId(), mRealm);
+
                     new ProfileActivator(profile, getApplicationContext()).activate();
 
                     dialog.dismiss();

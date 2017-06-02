@@ -12,7 +12,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.itude.apt.prophiles.R;
 import com.itude.apt.prophiles.actions.ProfileActivator;
@@ -59,16 +58,10 @@ public class ProfileListActivity extends AppCompatActivity {
             @Override
             public void onProfileSelected(String id) {
                 Profile profile = Profile.getById(id, mRealm);
-                Toast.makeText(
-                    ProfileListActivity.this,
-                    "Selected profile " + profile.getName(),
-                    Toast.LENGTH_SHORT
-                ).show();
 
                 Profile.select(id, mRealm);
 
-                ProfileActivator activator = new ProfileActivator(profile, activity);
-                activator.activate();
+                new ProfileActivator(profile, activity).activate();
             }
 
             @Override
