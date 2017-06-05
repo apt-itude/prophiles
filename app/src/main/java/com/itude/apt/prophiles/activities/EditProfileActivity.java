@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.itude.apt.prophiles.R;
 import com.itude.apt.prophiles.fragments.SingleChoiceDialogFragment;
+import com.itude.apt.prophiles.fragments.TextEntryDialogFragment;
 import com.itude.apt.prophiles.fragments.VolumePickerDialogFragment;
 import com.itude.apt.prophiles.fragments.WarningDialogFragment;
 import com.itude.apt.prophiles.model.EnableDisableState;
@@ -40,7 +41,6 @@ public class EditProfileActivity extends AppCompatActivity {
 
     private AudioManager mAudioManager;
 
-    private EditText mNameEditText;
     private TextView mWifiStateTextView;
     private TextView mBluetoothStateTextView;
     private TextView mLocationModeTextView;
@@ -56,6 +56,8 @@ public class EditProfileActivity extends AppCompatActivity {
         mRealm = Realm.getDefaultInstance();
         initializeProfile();
 
+        setTitle(mProfile.getName());
+
         mEnableDisableStrings = getResources().getStringArray(
             R.array.editProfile_enableDisableOptions
         );
@@ -66,7 +68,6 @@ public class EditProfileActivity extends AppCompatActivity {
         mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
 
         setUpActionBar();
-        setUpNameEditText();
         setUpWifiStateView();
         setUpBluetoothStateView();
         setUpLocationModeView();
@@ -80,7 +81,8 @@ public class EditProfileActivity extends AppCompatActivity {
 
         String profileId = intent.getStringExtra(Profile.ID);
         if (profileId == null) {
-            mProfile = new Profile();
+            Log.e(TAG, "Intent is missing '" + Profile.ID + "' extra");
+            finish();
         } else {
             mProfile = Profile.getById(profileId, mRealm);
         }
@@ -93,15 +95,6 @@ public class EditProfileActivity extends AppCompatActivity {
 
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
-    }
-
-    private void setUpNameEditText() {
-        mNameEditText = (EditText) findViewById(R.id.editText_editProfile_name);
-
-        String name = mProfile.getName();
-        if (name != null && !name.isEmpty()) {
-            mNameEditText.setText(name);
-        }
     }
 
     private void setUpWifiStateView() {
@@ -361,22 +354,36 @@ public class EditProfileActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_save:
-                save();
-                finish();
+            case R.id.action_rename:
+                showRenameDialog();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
-    private void save() {
+    private void showRenameDialog() {
+        TextEntryDialogFragment fragment = TextEntryDialogFragment.newInstance(
+            R.string.editProfile_name,
+            mProfile.getName(),
+            new TextEntryDialogFragment.OnOkListener() {
+                @Override
+                public void onOk(String text) {
+                    rename(text);
+                }
+            }
+        );
+
+        fragment.show(getSupportFragmentManager(), "RenameProfileDialogFragment");
+    }
+
+    private void rename(final String name) {
         mRealm.executeTransaction(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
-                mProfile.setName(mNameEditText.getText().toString());
-                realm.copyToRealmOrUpdate(mProfile);
+                mProfile.setName(name);
             }
         });
+        setTitle(name);
     }
 }

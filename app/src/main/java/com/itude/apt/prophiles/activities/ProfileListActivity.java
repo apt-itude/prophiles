@@ -16,6 +16,7 @@ import android.view.View;
 import com.itude.apt.prophiles.R;
 import com.itude.apt.prophiles.actions.ProfileActivator;
 import com.itude.apt.prophiles.adapters.ProfileListAdapter;
+import com.itude.apt.prophiles.fragments.TextEntryDialogFragment;
 import com.itude.apt.prophiles.model.Profile;
 
 import io.realm.OrderedRealmCollection;
@@ -116,14 +117,37 @@ public class ProfileListActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                createProfile();
+                showCreateProfileDialog();
             }
         });
     }
 
-    private void createProfile() {
-        Intent intent = new Intent(this, EditProfileActivity.class);
-        startActivity(intent);
+    private void showCreateProfileDialog() {
+        TextEntryDialogFragment fragment = TextEntryDialogFragment.newInstance(
+            R.string.profileList_createProfileDialogTitle,
+            new TextEntryDialogFragment.OnOkListener() {
+                @Override
+                public void onOk(String text) {
+                    createProfile(text);
+                }
+            }
+        );
+
+        fragment.show(getSupportFragmentManager(), "NewProfileDialogFragment");
+    }
+
+    private void createProfile(final String name) {
+        final Profile profile = new Profile();
+
+        mRealm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                profile.setName(name);
+                realm.copyToRealm(profile);
+            }
+        });
+
+        editProfile(profile.getId());
     }
 
     private void editProfile(String id) {

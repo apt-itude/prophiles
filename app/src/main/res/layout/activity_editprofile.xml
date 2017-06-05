@@ -33,22 +33,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/size_touchable"
                 android:gravity="center_vertical"
-                android:text="@string/editProfile_name"
-                android:textSize="@dimen/text_small"
-                android:textStyle="bold"/>
-
-            <EditText
-                android:id="@+id/editText_editProfile_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="@string/editProfile_nameHint"
-                android:inputType="textCapWords"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/size_touchable"
-                android:gravity="center_vertical"
                 android:text="@string/editProfile_actions"
                 android:textSize="@dimen/text_small"
                 android:textStyle="bold"/>

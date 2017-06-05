@@ -14,6 +14,7 @@
 
 
     <!-- ProfileListActivity -->
+    <string name="profileList_createProfileDialogTitle">Enter Profile Name</string>
 
     <!-- EditProfileActivity -->
     <string name="editProfile_name">Name</string>
@@ -25,6 +26,8 @@
     <string name="editProfile_ringVolume">Ring Volume</string>
     <string name="editProfile_mediaVolume">Media Volume</string>
     <string name="editProfile_alarmVolume">Alarm Volume</string>
+
+    <string name="editProfile_rename">Rename</string>
 
     <string name="editProfile_permissionNotGranted">Permission Not Granted</string>
     <string name="editProfile_grantWriteSecureSettingsPermission">
@@ -45,4 +48,7 @@
         <item>High Accuracy</item>
         <item>No Override</item>
     </string-array>
+
+    <!-- QuickTileService -->
+    <string name="quickTileService_defaultLabel">Select Profile</string>
 </resources>

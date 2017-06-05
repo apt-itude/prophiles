@@ -34,7 +34,11 @@ public class QuickTileService extends TileService {
         Tile tile = getQsTile();
 
         Profile selectedProfile = Profile.getSelected(mRealm);
-        tile.setLabel(selectedProfile.getName());
+        if (selectedProfile != null) {
+            tile.setLabel(selectedProfile.getName());
+        } else {
+            tile.setLabel(getResources().getString(R.string.quickTileService_defaultLabel));
+        }
 
         tile.setState(Tile.STATE_ACTIVE);
 
