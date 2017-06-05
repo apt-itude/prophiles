@@ -17,6 +17,11 @@
     <string name="profileList_createProfileDialogTitle">Enter Profile Name</string>
 
     <!-- EditProfileActivity -->
+    <string-array name="editProfile_pageTitles">
+        <item>Actions</item>
+        <item>Geofence Triggers</item>
+    </string-array>
+
     <string name="editProfile_name">Name</string>
     <string name="editProfile_nameHint">Home, Work, etc.</string>
     <string name="editProfile_actions">Actions</string>

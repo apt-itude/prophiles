@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:paddingLeft="@dimen/margin_padding_medium"
+              android:paddingRight="@dimen/margin_padding_medium">
+
+    <LinearLayout
+        android:id="@+id/linearLayout_editProfile_wifiState"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/margin_padding_small"
+        android:paddingTop="@dimen/margin_padding_small">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/editProfile_wifiState"
+            android:textSize="@dimen/text_medium"/>
+
+        <TextView
+            android:id="@+id/textView_editProfile_wifiState"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/all_no_override"
+            android:textSize="@dimen/text_small"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout_editProfile_bluetoothState"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/margin_padding_small"
+        android:paddingTop="@dimen/margin_padding_small">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/editProfile_bluetoothState"
+            android:textSize="@dimen/text_medium"/>
+
+        <TextView
+            android:id="@+id/textView_editProfile_bluetoothState"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/all_no_override"
+            android:textSize="@dimen/text_small"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout_editProfile_locationMode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/margin_padding_small"
+        android:paddingTop="@dimen/margin_padding_small">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/editProfile_locationMode"
+            android:textSize="@dimen/text_medium"/>
+
+        <TextView
+            android:id="@+id/textView_editProfile_locationMode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/all_no_override"
+            android:textSize="@dimen/text_small"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout_editProfile_ringVolume"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/margin_padding_small"
+        android:paddingTop="@dimen/margin_padding_small">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/editProfile_ringVolume"
+            android:textSize="@dimen/text_medium"/>
+
+        <TextView
+            android:id="@+id/textView_editProfile_ringVolume"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/all_no_override"
+            android:textSize="@dimen/text_small"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout_editProfile_mediaVolume"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/margin_padding_small"
+        android:paddingTop="@dimen/margin_padding_small">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/editProfile_mediaVolume"
+            android:textSize="@dimen/text_medium"/>
+
+        <TextView
+            android:id="@+id/textView_editProfile_mediaVolume"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/all_no_override"
+            android:textSize="@dimen/text_small"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout_editProfile_alarmVolume"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/margin_padding_small"
+        android:paddingTop="@dimen/margin_padding_small">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/editProfile_alarmVolume"
+            android:textSize="@dimen/text_medium"/>
+
+        <TextView
+            android:id="@+id/textView_editProfile_alarmVolume"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/all_no_override"
+            android:textSize="@dimen/text_small"/>
+
+    </LinearLayout>
+
+</LinearLayout>
